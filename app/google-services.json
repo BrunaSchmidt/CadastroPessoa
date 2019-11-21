@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "44206000928",
+    "firebase_url": "https://projetocadastro-5dbb0.firebaseio.com",
+    "project_id": "projetocadastro-5dbb0",
+    "storage_bucket": "projetocadastro-5dbb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44206000928:android:37076373f0aace59bc6545",
+        "android_client_info": {
+          "package_name": "com.example.cadastropessoa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44206000928-mridecu32g8686k25mim4oucckbbfkf3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cadastropessoa",
+            "certificate_hash": "ab04f1d453c1d6b4f87a084c4b1da437650f9736"
+          }
+        },
+        {
+          "client_id": "44206000928-fi1lmv72bdjbls7ukigo447igm774elu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQglOe1S947kiNOJlam2rQK2CypfOp6BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44206000928-fi1lmv72bdjbls7ukigo447igm774elu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
