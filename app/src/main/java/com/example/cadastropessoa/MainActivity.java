@@ -3,6 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -125,12 +126,14 @@ public class MainActivity extends AppCompatActivity {
             endereco.setCep(3456);
             endereco.setCidade("porto alegre");
             endereco.setEstado("rio grande do sul");
+            enderecos.child("002").setValue(endereco);
 
             DatabaseReference formacoes = referencia.child("formacoes");
             Formacao formacao = new Formacao();
             formacao.setCursos("informatica");
             formacao.setGraduacao("analise e desenvolvimento de sistemas");
             formacao.setPosgraduacao("segurança");
+            formacoes.child("004").setValue(formacao);
 
 
         // DatabaseReference produtos = referencia.child("produtos");
@@ -141,6 +144,19 @@ public class MainActivity extends AppCompatActivity {
         //  produto.setPreco(999.99);
 
         //  produto.child("002").setValue( produto );
+
+
+
+
+     /*    Busca Usuário
+
+        Button buscar = new Button(findViewById(R.id.buttonBuscar));
+
+            DatabaseReference buscar = referencia.child("usuarios");
+            BuscaUsuario busca = new BuscaUsuario();
+            busca.getCpf().*/
+
+
 
     }
 }
