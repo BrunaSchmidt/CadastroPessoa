@@ -3,10 +3,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,23 +23,12 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
 
     private FirebaseAuth useri ;
-    EditText campoText;
-    TextView campoInfo;
-    Button buscar;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-        campoText = findViewById(R.id.fieldBuscar);
-        campoInfo = findViewById(R.id.fieldInfo);
-
-
 
         /*
         //Deslogar usuario
@@ -134,44 +120,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        DatabaseReference enderecos = referencia.child("enderecos");
-        Endereco endereco = new Endereco();
-        endereco.setLogradouro(123);
-        endereco.setCep(3456);
-        endereco.setCidade("porto alegre");
-        endereco.setEstado("rio grande do sul");
-        enderecos.child("002").setValue(endereco);
+            DatabaseReference enderecos = referencia.child("enderecos");
+            Endereco endereco = new Endereco();
+            endereco.setLogradouro(123);
+            endereco.setCep(3456);
+            endereco.setCidade("porto alegre");
+            endereco.setEstado("rio grande do sul");
+            enderecos.child("002").setValue(endereco);
 
-        enderecos.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("FIREBASE", dataSnapshot.getValue().toString() );
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        DatabaseReference formacoes = referencia.child("formacoes");
-        Formacao formacao = new Formacao();
-        formacao.setCursos("informatica");
-        formacao.setGraduacao("analise e desenvolvimento de sistemas");
-        formacao.setPosgraduacao("segurança");
-        formacoes.child("004").setValue(formacao);
-
-        formacoes.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("FIREBASE", dataSnapshot.getValue().toString() );
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+            DatabaseReference formacoes = referencia.child("formacoes");
+            Formacao formacao = new Formacao();
+            formacao.setCursos("informatica");
+            formacao.setGraduacao("analise e desenvolvimento de sistemas");
+            formacao.setPosgraduacao("segurança");
+            formacoes.child("004").setValue(formacao);
 
 
         // DatabaseReference produtos = referencia.child("produtos");
@@ -186,30 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-           /* buscar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-
-                   String texto = campoText.getText().toString();
-
-                    DatabaseReference consulta = referencia.child("usuarios").getKey();
-                        console.log(data.val().name);
-                        console.log(data.val().points);
-                    });
-
-
-
-
-                }
-            });*/
-
-
-
+       // Busca Usuário
 
 
 
