@@ -1,9 +1,13 @@
 package com.example.cadastropessoa;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -15,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -23,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
 
     private FirebaseAuth useri ;
+    private EditText campoBuscar;
+    private Button botaoBuscar;
 
 
     @Override
@@ -147,10 +154,59 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
        // Busca Usuário
 
+        campoBuscar = (EditText) findViewById(R.id.fieldBuscar);
+        botaoBuscar = (Button) findViewById(R.id.buttonBuscar);
 
+
+
+        botaoBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String dado = campoBuscar.getText().toString();
+
+                if(dado != null){
+
+
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot1) {
+
+                        for (DataSnapshot postSnapshot: dataSnapshot1.getChildren()) {
+
+                            Restaurante restaurante = postSnapshot.getValue(Restaurante.class);
+                            final String local = restaurante.getLocalRestaurante();
+                            final String nomerest = restaurante.getNome();
+                        }
+                    }
+
+
+
+
+
+                    //String resultado = String.valueOf(referencia.child("usuarios").child("003").equalTo(dado));
+
+
+
+
+                    Context context = getApplicationContext();
+                    String message = resultado;
+                    int length = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, message, length);
+                    toast.show();
+
+
+                }
+
+
+
+
+
+            }
+        });
 
 
 
