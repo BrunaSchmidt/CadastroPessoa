@@ -176,9 +176,12 @@ public class MainActivity extends AppCompatActivity {
 
                         for (DataSnapshot postSnapshot: dataSnapshot1.getChildren()) {
 
-                            Restaurante restaurante = postSnapshot.getValue(Restaurante.class);
-                            final String local = restaurante.getLocalRestaurante();
-                            final String nomerest = restaurante.getNome();
+                            Usuario usuarioDado= postSnapshot.getValue(Usuario.class);
+                            final String nomeUsuario = usuarioDado.getNome();
+                            final String sobrenomeUsuario = usuarioDado.getSobrenome();
+                            final String dataNasc = usuarioDado.getDatanascimento();
+                            final int cpfUsuario = usuarioDado.getCpf();
+                            final String estadoCivilUsuario = usuarioDado.getEstadocivil();
                         }
                     }
 
