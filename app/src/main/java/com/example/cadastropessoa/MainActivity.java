@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth useri ;
     private EditText campoBuscar;
     private Button botaoBuscar;
+    private TextView campoInfo;
 
 
     @Override
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
         campoBuscar = (EditText) findViewById(R.id.fieldBuscar);
         botaoBuscar = (Button) findViewById(R.id.buttonBuscar);
+        campoInfo = (TextView) findViewById(R.id.fieldInfo);
 
 
 
@@ -171,10 +174,25 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot1) {
 
-                        for (DataSnapshot postSnapshot: dataSnapshot1.getChildren()) {
+                    referencia.child("usuarios").child("003").child("nome").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String value = dataSnapshot.getValue(String.class);
+                            campoInfo.setText("Nome: "+ value);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            campoInfo.setText("Status com falha");
+                        }
+
+
+/*
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
 
                             Usuario usuarioDado= postSnapshot.getValue(Usuario.class);
                             final String nomeUsuario = usuarioDado.getNome();
@@ -183,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                             final int cpfUsuario = usuarioDado.getCpf();
                             final String estadoCivilUsuario = usuarioDado.getEstadocivil();
                         }
-                    }
+                    }*/
 
 
 
