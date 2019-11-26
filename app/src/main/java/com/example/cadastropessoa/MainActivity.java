@@ -1,4 +1,5 @@
 package com.example.cadastropessoa;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -10,17 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -106,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
 //Salvar dados no Firebase
 
-        DatabaseReference usuarios = referencia.child( "usuarios" );
+        final DatabaseReference usuarios = referencia.child( "usuarios" );
         Usuario usuario = new Usuario();
         usuario.setNome("FULANO");
         usuario.setSobrenome("CICLANO");
@@ -114,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
         usuario.setCpf(1234567890);
         usuario.setEstadocivil("casado");
         usuarios.child("003").setValue( usuario );
+
+        usuario.setNome("jose");
+        usuario.setSobrenome("silva");
+        usuario.setDatanascimento("11/02/70");
+        usuario.setCpf(1234567821);
+        usuario.setEstadocivil("solteiro");
+        usuarios.child("005").setValue( usuario );
 
 
         usuarios.addValueEventListener(new ValueEventListener() {
@@ -168,48 +171,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String dado = campoBuscar.getText().toString();
-
-                if(dado != null){
+                final String dado = campoBuscar.getText().toString();
 
 
 
-
-                    referencia.child("usuarios").child("003").child("nome").addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String value = dataSnapshot.getValue(String.class);
-                            campoInfo.setText("Nome: "+ value);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError error) {
-                            campoInfo.setText("Status com falha");
-                        }
+                if(dado != null ) {
 
 
-/*
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-
-                            Usuario usuarioDado= postSnapshot.getValue(Usuario.class);
-                            final String nomeUsuario = usuarioDado.getNome();
-                            final String sobrenomeUsuario = usuarioDado.getSobrenome();
-                            final String dataNasc = usuarioDado.getDatanascimento();
-                            final int cpfUsuario = usuarioDado.getCpf();
-                            final String estadoCivilUsuario = usuarioDado.getEstadocivil();
-                        }
-                    }*/
+               String key = referencia.getDatabase().getReference("usuarios").child("003").(dado);
+               campoInfo.setText(key);
 
 
 
 
 
-                    //String resultado = String.valueOf(referencia.child("usuarios").child("003").equalTo(dado));
+                }else{
 
-
+                    String resultado = "erro";
 
 
                     Context context = getApplicationContext();
@@ -218,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
 
                     Toast toast = Toast.makeText(context, message, length);
                     toast.show();
-
 
                 }
 
