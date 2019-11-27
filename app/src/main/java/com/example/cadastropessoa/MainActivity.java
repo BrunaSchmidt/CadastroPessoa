@@ -1,8 +1,11 @@
 package com.example.cadastropessoa;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,19 +15,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
     private DatabaseReference referencia = FirebaseDatabase.getInstance().getReference();
 
-    private FirebaseAuth useri ;
+    //private FirebaseAuth useri ;
     private EditText campoBuscar;
     private Button botaoBuscar;
     private TextView campoInfo;
@@ -102,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
 //Salvar dados no Firebase
 
-        final DatabaseReference usuarios = referencia.child( "usuarios" );
+        DatabaseReference usuarios = referencia.child( "usuarios" );
         Usuario usuario = new Usuario();
         usuario.setNome("FULANO");
         usuario.setSobrenome("CICLANO");
@@ -140,12 +147,36 @@ public class MainActivity extends AppCompatActivity {
             endereco.setEstado("rio grande do sul");
             enderecos.child("002").setValue(endereco);
 
+        enderecos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("FIREBASE", dataSnapshot.getValue().toString() );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
             DatabaseReference formacoes = referencia.child("formacoes");
             Formacao formacao = new Formacao();
             formacao.setCursos("informatica");
             formacao.setGraduacao("analise e desenvolvimento de sistemas");
             formacao.setPosgraduacao("segurança");
             formacoes.child("004").setValue(formacao);
+
+        formacoes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("FIREBASE", dataSnapshot.getValue().toString() );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         // DatabaseReference produtos = referencia.child("produtos");
@@ -171,20 +202,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String dado = campoBuscar.getText().toString();
+                 String dado = campoBuscar.getText().toString();
+
 
 
 
                 if(dado != null ) {
 
 
+                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("usuarios");
 
-               String key = referencia.getDatabase().getReference("usuarios").child("003").(dado);
-               campoInfo.setText(key);
-
-
+                    //userRef = FirebaseDatabase.getInstance().getReference();
 
 
+                    Query user = userRef.orderByChild("nome").equalTo(dado);
+
+                    user.addValueEventListener( new ValueEventListener(){
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot clienteSnap : dataSnapshot.getChildren() ){
+
+
+                                campoInfo.setText();
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+
+                    });
 
                 }else{
 
@@ -192,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     Context context = getApplicationContext();
-                    String message = resultado;
+                    String message = resultado ;
                     int length = Toast.LENGTH_SHORT;
 
                     Toast toast = Toast.makeText(context, message, length);
