@@ -212,18 +212,16 @@ public class MainActivity extends AppCompatActivity {
 
                      DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("usuarios");
 
-                    //userRef = FirebaseDatabase.getInstance().getReference();
-
 
                     Query user = userRef.orderByChild("nome").equalTo(dado);
 
                     user.addValueEventListener( new ValueEventListener(){
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot clienteSnap : dataSnapshot.getChildren() ){
+                            for(DataSnapshot userSnap : dataSnapshot.getChildren() ){
 
 
-                                campoInfo.setText();
+                                campoInfo.setText(userSnap.getValue().toString());
 
                             }
                         }
