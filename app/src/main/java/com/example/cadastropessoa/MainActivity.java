@@ -162,13 +162,13 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                             Usuario peganome = dataSnapshot.getValue(Usuario.class);
-                            campoNome.setText("Sobre: "+ peganome.getNome());
+                            campoNome.setText("Nome: "+ peganome.getNome());
                             Usuario pegasobre = dataSnapshot.getValue(Usuario.class);
                              campoSobrenome.setText("Sobrenome: " + pegasobre.getSobrenome());
                            Usuario peganasc = dataSnapshot.getValue(Usuario.class);
                            campoNascimento.setText("Data de Nascimento: "+ peganasc.getDatanascimento());
                            Usuario pegacpf = dataSnapshot.getValue(Usuario.class);
-                           campoCPF.setText("CPF"+ pegacpf.getCpf());
+                           campoCPF.setText("CPF: "+ pegacpf.getCpf());
                             Usuario pegaestadoc = dataSnapshot.getValue(Usuario.class);
                             campoEstadoC.setText("Estado Civil: "+ pegaestadoc.getEstadocivil());
 
