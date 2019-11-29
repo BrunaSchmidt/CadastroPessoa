@@ -49,23 +49,30 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//Salvar dados no Firebase
+        //Salva dados no Firebase
 
         DatabaseReference usuarios = referencia.child( "usuarios" );
         Usuario usuario = new Usuario();
-        usuario.setNome("FULANO");
-        usuario.setSobrenome("CICLANO");
-        usuario.setDatanascimento("10/11/70");
-        usuario.setCpf("1234567890");
-        usuario.setEstadocivil("casado");
+        usuario.setNome("jonas");
+        usuario.setSobrenome("souza");
+        usuario.setDatanascimento("12/11/99");
+        usuario.setCpf("3214567890");
+        usuario.setEstadocivil("solteiro");
         usuarios.child("003").setValue( usuario );
 
         usuario.setNome("jose");
         usuario.setSobrenome("silva");
-        usuario.setDatanascimento("11/02/70");
+        usuario.setDatanascimento("02/05/89");
+        usuario.setCpf("7865453999");
+        usuario.setEstadocivil("casado");
+        usuarios.child("005").setValue( usuario );
+
+        usuario.setNome("ana");
+        usuario.setSobrenome("moraes");
+        usuario.setDatanascimento("21/10/99");
         usuario.setCpf("1234567821");
         usuario.setEstadocivil("solteiro");
-        usuarios.child("005").setValue( usuario );
+        usuarios.child("006").setValue( usuario );
 
 
         usuarios.addValueEventListener(new ValueEventListener() {
@@ -135,29 +142,35 @@ public class MainActivity extends AppCompatActivity {
 
 
         botaoBuscar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
+                //Pega o dado do campo e guarda em uma variavém para posteriormente realizar a busca
                 String dado = campoBuscar.getText().toString();
 
                 if(dado != null ) {
 
+                    //Cria uma referencia apontando para usuarios
                     DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("usuarios");
+
+                    //Guarda a referencia de usuario ordenando pela child nome e em seguida compara o conteúdo dele com o conteúdo da variável  dado
                     Query user = userRef.orderByChild("nome").equalTo(dado);
 
                     user.addChildEventListener(new ChildEventListener() {
+                        //através da referencia user, pega o dado de acordo com a childkey anterior e aloca cada informação no devido campo de acordo com user buscado
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                             Usuario peganome = dataSnapshot.getValue(Usuario.class);
-                            campoNome.setText(peganome.getNome());
+                            campoNome.setText("Sobre: "+ peganome.getNome());
                             Usuario pegasobre = dataSnapshot.getValue(Usuario.class);
-                             campoSobrenome.setText(pegasobre.getSobrenome());
+                             campoSobrenome.setText("Sobrenome: " + pegasobre.getSobrenome());
                            Usuario peganasc = dataSnapshot.getValue(Usuario.class);
-                           campoNascimento.setText(peganasc.getDatanascimento());
+                           campoNascimento.setText("Data de Nascimento: "+ peganasc.getDatanascimento());
                            Usuario pegacpf = dataSnapshot.getValue(Usuario.class);
-                           campoCPF.setText(pegacpf.getCpf());
+                           campoCPF.setText("CPF"+ pegacpf.getCpf());
                             Usuario pegaestadoc = dataSnapshot.getValue(Usuario.class);
-                            campoEstadoC.setText(pegaestadoc.getEstadocivil());
-
+                            campoEstadoC.setText("Estado Civil: "+ pegaestadoc.getEstadocivil());
 
                         }
 
@@ -172,12 +185,13 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {}
+
+
                     });
 
-                }else{
+                }/*else{
 
                     String resultado = "erro";
-
 
                     Context context = getApplicationContext();
                     String message = resultado ;
@@ -186,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(context, message, length);
                     toast.show();
 
-                }
+                }*/
 
             }
 
