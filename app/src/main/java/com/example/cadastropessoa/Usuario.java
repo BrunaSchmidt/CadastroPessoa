@@ -5,8 +5,8 @@ public class Usuario {
     private String nome;
     private String sobrenome;
     private String datanascimento;
-    private int cpf;
-    private String estadocivil;
+    private String cpf;
+    private String Estadocivil;
 
     public Usuario() {
     }
@@ -35,19 +35,19 @@ public class Usuario {
         this.datanascimento = datanascimento;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
     public String getEstadocivil() {
-        return estadocivil;
+        return Estadocivil;
     }
 
     public void setEstadocivil(String estadocivil) {
-        this.estadocivil = estadocivil;
+        this.Estadocivil = estadocivil;
     }
 }
